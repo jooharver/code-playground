@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧩 Code Playground
 
-## Getting Started
 
-First, run the development server:
+![Zustand](https://img.shields.io/badge/State-Zustand-olive)
+
+> ✨ A modern playground to build, validate, and preview dynamic JSON-based forms in real-time. Built for Xtrous Portal.
+
+---
+
+## 📌 Features
+
+- 📝 JSON editor with syntax highlighting (Monaco)
+- 🧪 Real-time validation & error messages
+- 🎨 Visual preview of form structure (live sync)
+- 🎯 Prettify & Minify JSON support
+- 🔁 Undo / Redo for editing
+- ✅ Simulate form submission & see form data
+- 📤 Ready for integration with Xtrous API / BPMN tasks
+
+---
+
+## 📷 Preview
+
+> 🔧 Live form editing and instant preview
+
+<!-- ![UI Preview](https://raw.githubusercontent.com/yourname/json-form-playground/main/public/preview-screenshot.png) -->
+
+---
+
+## 🚀 Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Make sure Node.js 18+ is installed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+| Layer         | Tech                         |
+|---------------|------------------------------|
+| Frontend      | React + TypeScript + Vite    |
+| Editor        | Monaco Editor   |
+| State Mgmt    | Zustand                      |
+| Styling       | CSS, Tailwind CSS                 |
+| Backend API   | .NET (Xtrous Portal API)  |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Sample JSON
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```json
+{
+  "schema": {
+    "name": { "type": "string", "title": "Nama" },
+    "age": { "type": "number", "title": "Usia" }
+  },
+  "form": [
+    "name",
+    "age",
+    { "type": "submit", "title": "Kirim" }
+  ]
+}
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pull requests are welcome! If you're working in a team, please open issues for significant changes first.
+
+---
+
+## 📄 License
+
+Team Sarastya Technology Integrata © 2025
