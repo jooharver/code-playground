@@ -55,7 +55,7 @@ export default function FormJson({ dataStructure, formData = {}, onSubmit }: Pro
                 onChange={(e) => handleChange(key, e.target.value)}
                 className="w-full rounded border px-3 py-2"
               >
-                <option value="">-- Pilih --</option>
+                <option value="">Pilih</option>
                 {value.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}

@@ -5,6 +5,7 @@ import { json } from "@codemirror/lang-json";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { linter, Diagnostic } from "@codemirror/lint";
 import { EditorView } from "@codemirror/view";
+import { Undo2,Redo2,ArrowDownToLine } from "lucide-react";
 
 // JSON Linter untuk highlight error
 const jsonLinter = () =>
@@ -61,14 +62,14 @@ export default function JsonEditor({
           disabled={!canUndo}
           className="bg-gray-300 text-black px-3 py-1 rounded disabled:opacity-40"
         >
-          Undo
+                  <Undo2 />
         </button>
         <button
           onClick={onRedo}
           disabled={!canRedo}
           className="bg-gray-300 text-black px-3 py-1 rounded disabled:opacity-40"
         >
-          Redo
+          <Redo2 />
         </button>
         <button
           onClick={onPrettify}

@@ -1,9 +1,10 @@
 // 📁 src/app/page.tsx
 "use client";
-import JsonEditor from "@/components/JsonEditor";
-import FormJson from "@/components/FormJson";
+import JsonEditor from "./components/JsonEditor";
+import FormJson from "./components/FormJson";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { Undo2, ArrowDownToLine, ArrowUpToLine } from "lucide-react";
 
 export default function HomePage() {
   const [jsonText, setJsonText] = useState<string>("{}");
@@ -128,22 +129,22 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="flex flex-col lg:flex-row p-6 gap-6">
+    <main className="min-h-screen bg-gray-50 pt-20 px-4 sm:px-6 z-0 relative">
+      <div className="flex flex-col lg:flex-row gap-6">
         <div className="w-full lg:w-1/2">
-          <div className="rounded-md shadow bg-white p-6">
+          <div className="rounded-md shadow bg-white p-4 sm:p-6">
             <div className="mb-4 flex flex-wrap gap-2">
               <button
                 onClick={handleDownload}
-                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                className="bg-green-500 flex items-center gap-2 text-white px-4 py-2 rounded hover:bg-green-600"
               >
-                Download JSON
+                <ArrowDownToLine className="w-5 h-5" /> Download
               </button>
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600"
+                className="bg-green-500 flex items-center gap-2 text-white px-4 py-2 rounded hover:bg-green-600"
               >
-                Upload JSON
+                <ArrowUpToLine className="w-5 h-5" /> Upload
               </button>
               <input
                 ref={fileInputRef}
@@ -172,8 +173,8 @@ export default function HomePage() {
             />
           </div>
         </div>
-        <div className="w-full lg:w-1/2">
-          <div className="rounded-md p-6 bg-gray-100 shadow h-full">
+        <div className="w-full lg:w-1/2 z-0 relative">
+          <div className="rounded-md p-4 sm:p-6 bg-gray-100 shadow h-full">
             <FormJson
               dataStructure={formStructure}
               formData={formData}
