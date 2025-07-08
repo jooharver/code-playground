@@ -23,7 +23,7 @@ export default function LoginPage() {
       const res = await api.post('/api/auth/login', formData);
       const { token } = res.data;
       localStorage.setItem('token', token);
-      router.push('/profile');
+      router.push('/');
     } catch (err) {
       const message =
         err.response?.data?.message || 'Login gagal. Cek email atau password.';
@@ -37,7 +37,7 @@ export default function LoginPage() {
       <div className={styles.heroSection}>
         <div className={styles.logo}></div>
         <div className={styles.typingText}>
-          <h1>Wellcome To <br />Sarastya Internship</h1>
+          <h1>Wellcome To <br />Sarastya Code Playground</h1>
         </div>
       </div>
 
