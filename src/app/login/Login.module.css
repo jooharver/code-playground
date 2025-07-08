@@ -1,0 +1,209 @@
+.container {
+  display: flex;
+  height: 90vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #f0f2f5, #ffffff);
+  overflow: hidden;
+  margin-top: 80px;
+}
+
+/* Hero Section */
+.heroSection {
+  flex: 1;
+  background: linear-gradient(135deg, #182869, #2f5b9e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 450px;
+  height: 450px;
+  margin-left: 5rem;
+  margin-top: -1rem;
+  background-image: url('/images/sarastyaLogo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+
+  /* Styling tambahan */
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+
+  /* Floating animation */
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Keyframes untuk efek melayang */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.typingText{
+    position: relative;
+    font-size: large;
+    margin-top: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}
+
+
+
+/* Form Section */
+.formSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  font-weight: 500;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card {
+  /* ... style lainnya ... */
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #305bab;
+  text-align: center;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  flex: 1;
+  padding-right: 35px; /* ruang untuk ikon mata */
+}
+
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.inputGroup input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.buttonGroup button {
+  background-color: #305bab;
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.buttonGroup button:hover {
+  background-color: #234b8f;
+  transform: scale(1.04);
+}
+
+.buttonGroup button:active {
+  transform: scale(1);
+}
+
+
+.registerPrompt {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.registerPrompt button {
+  background: none;
+  border: none;
+  color: #305bab;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 0.9rem;
+}
+.registerPrompt button:hover{
+    text-decoration: underline;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}

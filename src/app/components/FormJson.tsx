@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 type Props = {
-  dataStructure: Record<string, any> | null;
-  formData?: Record<string, any>;
-  onSubmit?: (data: Record<string, any>) => void;
+  dataStructure: Record<string, unknown> | null;
+  formData?: Record<string, unknown>;
+  onSubmit?: (data: Record<string, unknown>) => void;
 };
 
 export default function FormJson({ dataStructure, formData = {}, onSubmit }: Props) {
-  const [values, setValues] = useState<Record<string, any>>(formData);
+  const [values, setValues] = useState<Record<string, unknown>>(formData);
 
   useEffect(() => {
     setValues(formData);
@@ -17,7 +17,7 @@ export default function FormJson({ dataStructure, formData = {}, onSubmit }: Pro
     return <p className="text-gray-500">Form belum tersedia</p>;
   }
 
-  const handleChange = (key: string, value: any) => {
+  const handleChange = (key: string, value: unknown) => {
     setValues((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -51,7 +51,7 @@ export default function FormJson({ dataStructure, formData = {}, onSubmit }: Pro
             <div key={key}>
               <label className="block text-sm font-medium mb-1">{key}</label>
               <select
-                value={currentValue}
+                value={typeof currentValue === "string" ? currentValue : ""}
                 onChange={(e) => handleChange(key, e.target.value)}
                 className="w-full rounded border px-3 py-2"
               >
@@ -99,7 +99,7 @@ export default function FormJson({ dataStructure, formData = {}, onSubmit }: Pro
               <label className="block text-sm font-medium mb-1">{key}</label>
               <input
                 type="text"
-                value={currentValue.join?.(", ") ?? ""}
+                value={Array.isArray(currentValue) ? currentValue.join(", ") : ""}
                 onChange={(e) =>
                   handleChange(key, e.target.value.split(",").map((v) => v.trim()))
                 }
@@ -116,7 +116,11 @@ export default function FormJson({ dataStructure, formData = {}, onSubmit }: Pro
             <label className="block text-sm font-medium mb-1">{key}</label>
             <input
               type={typeof value === "number" ? "number" : "text"}
-              value={currentValue}
+              value={
+                typeof currentValue === "string" || typeof currentValue === "number"
+                  ? currentValue
+                  : ""
+              }
               onChange={(e) =>
                 handleChange(key, typeof value === "number" ? Number(e.target.value) : e.target.value)
               }
