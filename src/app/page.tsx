@@ -2,16 +2,19 @@
 "use client";
 import JsonEditor from "@/components/JsonEditor";
 import FormJson from "@/components/FormJson";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 
 export default function HomePage() {
-  const [jsonText, setJsonText] = useState<string>("");
+  const [jsonText, setJsonText] = useState<string>("{}");
   const [formStructure, setFormStructure] = useState<Record<string, any> | null>(null);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [submittedData, setSubmittedData] = useState<Record<string, any> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [redoStack, setRedoStack] = useState<string[]>([]);
   const [undoStack, setUndoStack] = useState<string[]>([]);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("jsonEditorData");
@@ -28,25 +31,22 @@ export default function HomePage() {
   }, [jsonText]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      try {
-        const parsed = JSON.parse(jsonText);
-        if (typeof parsed !== "object" || Array.isArray(parsed)) {
-          throw new Error("JSON harus berupa objek");
-        }
-        setFormStructure(parsed);
-        setFormData(parsed);
-        setError(null);
-      } catch {
-        setFormStructure(null);
-        if (jsonText.trim() !== "") {
-          setError("❌ JSON tidak valid atau bukan objek.");
-        } else {
-          setError(null);
-        }
+    try {
+      const parsed = JSON.parse(jsonText);
+      if (typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("JSON harus berupa objek");
       }
-    }, 300);
-    return () => clearTimeout(timeout);
+      setFormStructure(parsed);
+      setFormData(parsed);
+      setError(null);
+    } catch (err: any) {
+      setFormStructure(null);
+      if (jsonText.trim() !== "") {
+        setError("❌ " + err.message);
+      } else {
+        setError(null);
+      }
+    }
   }, [jsonText]);
 
   const handlePrettify = () => {
@@ -93,7 +93,7 @@ export default function HomePage() {
   };
 
   const handleClear = () => {
-    setJsonText("");
+    setJsonText("{}");
     setFormStructure(null);
     setFormData({});
     setSubmittedData(null);
@@ -103,25 +103,57 @@ export default function HomePage() {
     localStorage.removeItem("jsonEditorData");
   };
 
+  const handleDownload = () => {
+    const blob = new Blob([jsonText], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result;
+      if (typeof text === "string") {
+        setUndoStack((prev) => [jsonText, ...prev]);
+        setJsonText(text);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow px-6 py-4 mb-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800">JSON to Form Playground</h1>
-        </div>
-      </nav>
-
       <div className="flex flex-col lg:flex-row p-6 gap-6">
         <div className="w-full lg:w-1/2">
           <div className="rounded-md shadow bg-white p-6">
-            <div className="mb-4 flex gap-2">
-              <button onClick={handleUndo} disabled={undoStack.length === 0} className="bg-gray-300 text-black px-3 py-1 rounded disabled:opacity-40">
-                Undo
+            <div className="mb-4 flex flex-wrap gap-2">
+              <button
+                onClick={handleDownload}
+                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+              >
+                Download JSON
               </button>
-              <button onClick={handleRedoJson} disabled={redoStack.length === 0} className="bg-gray-300 text-black px-3 py-1 rounded disabled:opacity-40">
-                Redo
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600"
+              >
+                Upload JSON
               </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="application/json"
+                className="hidden"
+                onChange={handleUpload}
+              />
             </div>
+
             <JsonEditor
               value={jsonText}
               onChange={(val) => {
