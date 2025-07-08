@@ -1,14 +1,14 @@
 // 📁 src/app/page.tsx
 "use client";
-import JsonEditor from "@/components/JsonEditor";
-import FormJson from "@/components/FormJson";
+import JsonEditor from "./components/JsonEditor";
+import FormJson from "./components/FormJson";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [jsonText, setJsonText] = useState<string>("");
-  const [formStructure, setFormStructure] = useState<Record<string, any> | null>(null);
-  const [formData, setFormData] = useState<Record<string, any>>({});
-  const [submittedData, setSubmittedData] = useState<Record<string, any> | null>(null);
+  const [formStructure, setFormStructure] = useState<Record<string, unknown> | null>(null);
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
+  const [submittedData, setSubmittedData] = useState<Record<string, unknown> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [redoStack, setRedoStack] = useState<string[]>([]);
   const [undoStack, setUndoStack] = useState<string[]>([]);
@@ -87,7 +87,7 @@ export default function HomePage() {
     setRedoStack((r) => r.slice(1));
   };
 
-  const handleSubmit = (data: Record<string, any>) => {
+  const handleSubmit = (data: Record<string, unknown>) => {
     setSubmittedData(data);
     console.log("Submitted:", data);
   };
@@ -121,6 +121,9 @@ export default function HomePage() {
               <button onClick={handleRedoJson} disabled={redoStack.length === 0} className="bg-gray-300 text-black px-3 py-1 rounded disabled:opacity-40">
                 Redo
               </button>
+              <button onClick={handleClear} className="bg-red-300 text-black px-3 py-1 rounded">
+                Clear
+              </button>
             </div>
             <JsonEditor
               value={jsonText}
@@ -133,7 +136,6 @@ export default function HomePage() {
               onMinify={handleMinify}
               onUndo={handleUndo}
               onRedo={handleRedoJson}
-              onClear={handleClear}
               canUndo={undoStack.length > 0}
               canRedo={redoStack.length > 0}
               error={error}
