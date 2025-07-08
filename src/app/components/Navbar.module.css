@@ -1,0 +1,156 @@
+.navbar {
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+}
+
+/* ============================
+   DESKTOP NAVBAR
+============================ */
+.desktopNavbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  /* Default visible */
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* State ketika desktop navbar disembunyikan */
+.desktopNavbar.hide {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.menu {
+  display: flex;
+  gap: 24px;
+}
+
+.menuItem {
+  color: #4b5563; /* gray-700 */
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  transform: scale(1.05);
+  color: #305bab;
+}
+
+.active {
+  color: #305bab;
+  font-weight: 700;
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #305bab;
+}
+
+/* ============================
+   MOBILE NAVBAR
+============================ */
+.mobileNavbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  /* Default hidden */
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  visibility: hidden;
+
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 1000;
+}
+
+/* State ketika mobile navbar ditampilkan */
+.mobileNavbar.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.mobileItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #4b5563;
+  font-weight: 500;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.mobileItem:hover {
+  transform: scale(1.05);
+  color: #305bab;
+}
+
+.mobileLabel {
+  margin-top: 4px;
+}
+
+.mobileItem.active {
+  color: #305bab;
+  font-weight: 600;
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 769px) {
+  /* Override agar desktop navbar selalu tampil normal */
+  .desktopNavbar {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+  /* Sembunyikan mobile navbar di desktop */
+  .mobileNavbar {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+}
